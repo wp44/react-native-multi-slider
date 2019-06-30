@@ -203,7 +203,7 @@ export default class MultiSlider extends React.Component {
   };
 
   moveOne = gestureState => {
-    if (!this.props.enabledOne) {
+    if (!this.props.enabledOne || this.props.disabled) {
       return;
     }
     const unconfined = I18nManager.isRTL
@@ -250,7 +250,7 @@ export default class MultiSlider extends React.Component {
   };
 
   moveTwo = gestureState => {
-    if (!this.props.enabledTwo) {
+    if (!this.props.enabledTwo || this.props.disabled) {
       return;
     }
     const unconfined = I18nManager.isRTL
@@ -392,13 +392,13 @@ export default class MultiSlider extends React.Component {
             justifyContent: "space-between"
           }}
         >
-          <Text>
+          <Text style={{ color: this.props.disabled ? "lightgrey" : "black" }}>
             From:{" "}
             {this.props.valuesArray
               ? this.props.valuesArray[this.state.valueOne]
               : this.state.valueOne}
           </Text>
-          <Text>
+          <Text style={{ color: this.props.disabled ? "lightgrey" : "black" }}>
             Till:{" "}
             {this.props.valuesArray
               ? this.props.valuesArray[this.state.valueTwo]
@@ -410,7 +410,9 @@ export default class MultiSlider extends React.Component {
             style={[
               styles.track,
               this.props.trackStyle,
-              trackOneStyle,
+              this.props.disabled
+                ? { backgroundColor: "lightgrey" }
+                : trackOneStyle,
               { width: trackOneLength }
             ]}
           />
@@ -418,7 +420,9 @@ export default class MultiSlider extends React.Component {
             style={[
               styles.track,
               this.props.trackStyle,
-              trackTwoStyle,
+              this.props.disabled
+                ? { backgroundColor: "lightgrey" }
+                : trackTwoStyle,
               { width: trackTwoLength }
             ]}
           />
@@ -447,7 +451,7 @@ export default class MultiSlider extends React.Component {
             >
               {isMarkersSeparated === false ? (
                 <Marker
-                  enabled={this.props.enabledOne}
+                  enabled={!this.props.disabled && this.props.enabledOne}
                   pressed={this.state.onePressed}
                   markerStyle={[styles.marker, this.props.markerStyle]}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
@@ -457,7 +461,7 @@ export default class MultiSlider extends React.Component {
                 />
               ) : (
                 <MarkerLeft
-                  enabled={this.props.enabledOne}
+                  enabled={!this.props.disabled && this.props.enabledOne}
                   pressed={this.state.onePressed}
                   markerStyle={[styles.marker, this.props.markerStyle]}
                   pressedMarkerStyle={this.props.pressedMarkerStyle}
@@ -487,7 +491,7 @@ export default class MultiSlider extends React.Component {
                     markerStyle={this.props.markerStyle}
                     pressedMarkerStyle={this.props.pressedMarkerStyle}
                     currentValue={this.state.valueTwo}
-                    enabled={this.props.enabledTwo}
+                    enabled={!this.props.disabled && this.props.enabledTwo}
                     valuePrefix={this.props.valuePrefix}
                     valueSuffix={this.props.valueSuffix}
                   />
@@ -497,7 +501,7 @@ export default class MultiSlider extends React.Component {
                     markerStyle={this.props.markerStyle}
                     pressedMarkerStyle={this.props.pressedMarkerStyle}
                     currentValue={this.state.valueTwo}
-                    enabled={this.props.enabledTwo}
+                    enabled={!this.props.disabled && this.props.enabledTwo}
                     valuePrefix={this.props.valuePrefix}
                     valueSuffix={this.props.valueSuffix}
                   />
