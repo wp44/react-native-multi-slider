@@ -393,17 +393,21 @@ export default class MultiSlider extends React.Component {
           }}
         >
           <Text style={{ color: this.props.disabled ? "lightgrey" : "black" }}>
-            From:{" "}
+            {this.props.labels[0]}:{" "}
             {this.props.valuesArray
               ? this.props.valuesArray[this.state.valueOne]
               : this.state.valueOne}
           </Text>
-          <Text style={{ color: this.props.disabled ? "lightgrey" : "black" }}>
-            Till:{" "}
-            {this.props.valuesArray
-              ? this.props.valuesArray[this.state.valueTwo]
-              : this.state.valueTwo}
-          </Text>
+          {this.props.valuesArray[this.state.valueTwo] && (
+            <Text
+              style={{ color: this.props.disabled ? "lightgrey" : "black" }}
+            >
+              {this.props.labels[1]}:{" "}
+              {this.props.valuesArray
+                ? this.props.valuesArray[this.state.valueTwo]
+                : this.state.valueTwo}
+            </Text>
+          )}
         </View>
         <View style={[styles.fullTrack, { width: sliderLength }]}>
           <View
